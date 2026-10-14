@@ -38,7 +38,7 @@ claude --version
 
 ```bash
 ./devtools/claude/run.sh
-# 或交互菜单：sp → 1–4 为 Codex（2–4 含 git 友好恢复），5–7 为 Claude（需 spec/serverspec/link-home.sh + ~/.serverspec/sp.sh）
+# 或交互菜单：sp → 1–4 为 Codex（2–4 含 git 友好恢复），5–7 为 Claude（需 ~/.privspec/ubuntu/load.sh 或 server/link-home.sh）
 ```
 
 进入后可用 `/status` 确认 **Anthropic base URL** 为 `https://api.deepseek.com/anthropic`。

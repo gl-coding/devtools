@@ -32,7 +32,7 @@ cd /root/nginxRouter
 ./devtools/opencode/run.sh
 ```
 
-或终端菜单：`sp` → **8** 新会话、**9** 继续最近、**10** 选择历史（见 `spec/serverspec/sp.sh`）。
+或终端菜单：`sp` → **8** 新会话、**9** 继续最近、**10** 选择历史（见 `spec/privspec/server/sp.sh`）。
 
 `run.sh` 会加载 `DEEPSEEK_API_KEY`、设置 `OPENCODE_CONFIG`（默认模型 **deepseek/deepseek-flash**），并 **unset 代理变量**（DeepSeek API 直连，不走 Mihomo）。
 
