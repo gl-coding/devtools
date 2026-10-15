@@ -30,13 +30,13 @@ printenv OPENAI_API_KEY | codex login --with-api-key
 
 ## 交互式（推荐日常）
 
-在仓库根目录打开 Codex TUI：
+在调用时的当前目录打开 Codex TUI（包装脚本不会切换目录）：
 
 ```bash
 ./devtools/codex/run.sh
 # 需 git push / 重启服务时：
 ./devtools/codex/run.sh --git-friendly
-# 等价于：source devtools/codex/env.sh && cd 仓库根 && codex -s danger-full-access -a on-request
+# 等价于：source devtools/codex/env.sh && codex -s danger-full-access -a on-request
 ```
 
 带首条指令进入：
@@ -80,6 +80,6 @@ codex logout               # 清除本机登录
 | 文件 | 作用 |
 |------|------|
 | `env.sh` | 设置 `http_proxy` / `https_proxy` 指向本机 Mihomo `7890` |
-| `run.sh` | 仓库根目录 + 代理 + `codex`（可传参） |
+| `run.sh` | 保留当前目录 + 代理 + `codex`（可传参） |
 | `resume.sh` | 恢复会话（`danger-full-access` + `on-request` 审批，便于 git） |
-| `exec.sh` | 仓库根目录 + 代理 + `codex exec "<prompt>"` |
+| `exec.sh` | 保留当前目录 + 代理 + `codex exec "<prompt>"` |
