@@ -4,6 +4,16 @@
 
 参考：[DeepSeek × Claude Code](https://api-docs.deepseek.com/quick_start/agent_integrations/claude_code)
 
+## 路径与工作目录
+
+脚本通过自身目录的 `../..` 定位工作目录，也就是 devtools 的上一级。在 privspec 默认布局中，该目录是 `~/.privspec/common/`，私有配置位于 `common/env/`，不在 `common/devtools/env/`。下列 `./devtools/...` 和 `env/...` 示例均相对于这个工作目录，先执行：
+
+```bash
+cd ~/.privspec/common
+```
+
+通过统一入口 `source ~/.privspec/load.sh` 加载公共变量后，也可直接用 `sp` 启动；server 的菜单编号见下文。包装脚本仍会切换到上述目录，不保留调用者的当前目录。
+
 ## 1. API Key
 
 在 [DeepSeek 开放平台](https://platform.deepseek.com/) 创建 API Key，写入：
@@ -38,7 +48,7 @@ claude --version
 
 ```bash
 ./devtools/claude/run.sh
-# 或交互菜单：sp → 1–4 为 Codex（2–4 含 git 友好恢复），5–7 为 Claude（需 ~/.privspec/ubuntu/load.sh 或 server/link-home.sh）
+# 或 server 菜单：sp → 5–7 为 Claude（user.local=server，先 source ~/.privspec/load.sh）
 ```
 
 进入后可用 `/status` 确认 **Anthropic base URL** 为 `https://api.deepseek.com/anthropic`。
@@ -59,7 +69,7 @@ claude --version
 |------|------|
 | `env.sh` | 代理 + 读取 `env/.env.claude.local` + DeepSeek 模型环境变量 |
 | `install.sh` | `npm install -g @anthropic-ai/claude-code` |
-| `run.sh` | 仓库根目录 + `claude` |
+| `run.sh` | devtools 上一级目录 + `claude` |
 | `settings.deepseek.json` | 可合并到 `~/.claude/settings.json` 的 env 模板（不含密钥） |
 
 ## 模型（可覆盖）

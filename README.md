@@ -39,4 +39,4 @@ git clone --recurse-submodules git@github.com:gl-coding/devtools.git
 - 服务器菜单：`user/server/sp-menu.sh`，工具路径可通过 `SERVER_DEVTOOLS_DIR` 覆盖。
 - 默认工具路径均为 `~/.privspec/common/devtools/`；nginxRouter 应用位置由 `NGINXROUTER_DIR` 单独配置，默认 `$HOME/nginxRouter`。
 
-Codex 包装脚本在调用者当前目录运行。Claude Code 和 OpenCode 包装脚本会切到 devtools 根目录，并读取该目录 `env/` 下的私有配置；公共变量可由 privspec 加载入口提前导出。各工具具体参数和配置见各自 README。
+Codex 包装脚本在调用者当前目录运行。Claude Code 和 OpenCode 包装脚本按各自脚本目录的 `../..` 定位工作目录，即 devtools 的上一级；privspec 默认布局下为 `~/.privspec/common/`，读取 `common/env/` 下的私有配置，不读取 `common/devtools/env/`。OpenCode 的会话使用这个工作目录。公共变量可由 privspec 加载入口提前导出。各工具具体参数和配置见各自 README。

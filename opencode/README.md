@@ -4,6 +4,16 @@
 
 参考：[DeepSeek × OpenCode](https://api-docs.deepseek.com/quick_start/agent_integrations/opencode/)
 
+## 路径与工作目录
+
+脚本通过自身目录的 `../..` 定位工作目录，也就是 devtools 的上一级。在 privspec 默认布局中，该目录是 `~/.privspec/common/`，私有配置位于 `common/env/`，不在 `common/devtools/env/`。下列 `./devtools/...` 和 `env/...` 示例均相对于这个工作目录，先执行：
+
+```bash
+cd ~/.privspec/common
+```
+
+通过统一入口 `source ~/.privspec/load.sh` 加载公共变量后，也可直接用 `sp` 启动；server 的菜单编号见下文。包装脚本仍会切换到上述目录，不保留调用者的当前目录。
+
 ## 准备 API Key
 
 在 [DeepSeek 开放平台](https://platform.deepseek.com/) 创建 Key。若已配置 Claude Code，可复用同一文件：
@@ -28,11 +38,11 @@ chmod 600 env/.env.opencode.local
 ## 启动
 
 ```bash
-cd /root/nginxRouter
+cd ~/.privspec/common
 ./devtools/opencode/run.sh
 ```
 
-或终端菜单：`sp` → **8** 新会话、**9** 继续最近、**10** 选择历史（见 `spec/privspec/server/sp.sh`）。
+或终端菜单：`sp` → **8** 新会话、**9** 继续最近、**10** 选择历史（`user.local=server`，见 privspec 的 `user/server/sp-menu.sh`）。
 
 `run.sh` 会加载 `DEEPSEEK_API_KEY`、设置 `OPENCODE_CONFIG`（默认模型 **deepseek/deepseek-flash**），并 **unset 代理变量**（DeepSeek API 直连，不走 Mihomo）。
 
@@ -46,7 +56,7 @@ OpenCode 的会话按 **工程目录** 区分。在 `~` 下直接运行 `opencod
 ./devtools/opencode/run.sh session list
 ```
 
-或在 TUI 里用 `/session` 查看、切换。
+默认 privspec 布局下，会话作用域为 `~/.privspec/common/`；从其他目录直接执行 OpenCode 可能看到不同的会话。或在 TUI 里用 `/session` 查看、切换。
 
 ## 覆盖默认模型
 
@@ -63,7 +73,11 @@ export OPENCODE_MODEL=deepseek/deepseek-v4-pro
 | 文件 | 说明 |
 |---|---|
 | `env.sh` | 清除代理 + 读取 `env/.env.opencode.local` / `env/.env.claude.local` + `OPENCODE_CONFIG` |
-| `run.sh` | 在仓库根目录启动 `opencode`（支持 `--continue` 等参数） |
+| `run.sh` | 在 devtools 上一级目录启动 `opencode`（支持 `--continue` 等参数） |
 | `resume.sh` | 列出本工程会话并编号选择恢复 |
 | `install.sh` | 全局安装 `opencode-ai` |
 | `opencode.deepseek.json` | 默认 `deepseek/deepseek-flash`（无密钥） |
+
+包装脚本直接透传 OpenCode 参数，不附加 `--standalone`：当前 CLI 不支持该参数，传入会显示帮助并退出，影响 TUI 启动与历史会话列表。
+
+`env.sh` 依次读取工作目录下的 `env/.env.opencode.local`、`env/.env.claude.local`；二者有同名变量时，以后读取的 Claude 配置为准。公共变量也可能在工具启动时被这些文件覆盖。

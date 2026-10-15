@@ -11,7 +11,7 @@ if ! command -v opencode >/dev/null 2>&1; then
   exit 1
 fi
 
-json="$(opencode session list --standalone --format json 2>/dev/null || echo '[]')"
+json="$(opencode session list --format json 2>/dev/null || echo '[]')"
 mapfile -t _rows < <(
   JSON="$json" python3 <<'PY'
 import json, os
@@ -56,4 +56,4 @@ if [[ -z "$session_id" ]]; then
   exit 1
 fi
 
-exec opencode --standalone --session "$session_id"
+exec opencode --session "$session_id"
