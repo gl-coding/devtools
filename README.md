@@ -30,4 +30,4 @@ git clone --recurse-submodules git@github.com:gl-coding/devtools.git
 - `claude/` — Claude Code 安装与 DeepSeek 配置示例
 - `opencode/` — OpenCode CLI
 - `vscode/` — 编辑器相关说明
-- `mihomo/` — 代理栈（见该目录 README）
+- `mihomo/` — 代理栈（订阅、节点、测速；[系统代理与系统支持](mihomo/README.md#系统代理与系统支持)，含 Ubuntu KDE / GNOME 的 `sp` 菜单使用说明）
