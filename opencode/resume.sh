@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
-# 在本仓库工程内选择并恢复 OpenCode 会话
+# 在调用者当前工程内选择并恢复 OpenCode 会话
 set -euo pipefail
-ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 # shellcheck source=env.sh
 source "$(dirname "$0")/env.sh"
-cd "$ROOT"
 
 if ! command -v opencode >/dev/null 2>&1; then
   echo "未找到 opencode，请先安装: ./devtools/opencode/install.sh" >&2
@@ -30,7 +28,7 @@ PY
 )
 
 if [[ ${#_rows[@]} -eq 0 ]]; then
-  echo "当前工程（$ROOT）下没有 OpenCode 会话。可先运行: ./devtools/opencode/run.sh"
+  echo "当前工程（$PWD）下没有 OpenCode 会话。可先运行: ./devtools/opencode/run.sh"
   exit 0
 fi
 

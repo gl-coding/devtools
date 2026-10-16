@@ -6,7 +6,7 @@
 
 ## 路径与工作目录
 
-脚本通过自身目录的 `../..` 定位工作目录，也就是 devtools 的上一级。在 privspec 默认布局中，该目录是 `~/.privspec/common/`，私有配置位于 `common/env/`，不在 `common/devtools/env/`。下列 `./devtools/...` 和 `env/...` 示例均相对于这个工作目录，先执行：
+脚本通过自身目录的 `../..` 定位配置根目录，也就是 devtools 的上一级。在 privspec 默认布局中，该目录是 `~/.privspec/common/`，私有配置位于 `common/env/`，不在 `common/devtools/env/`。脚本不会切换调用者的当前目录；OpenCode 的工作区和会话归属由启动时的当前目录决定。下列 `./devtools/...` 和 `env/...` 示例均相对于配置根目录，先执行：
 
 ```bash
 cd ~/.privspec/common
@@ -56,7 +56,7 @@ OpenCode 的会话按 **工程目录** 区分。在 `~` 下直接运行 `opencod
 ./devtools/opencode/run.sh session list
 ```
 
-默认 privspec 布局下，会话作用域为 `~/.privspec/common/`；从其他目录直接执行 OpenCode 可能看到不同的会话。或在 TUI 里用 `/session` 查看、切换。
+通过 `sp` 启动时，新会话默认使用启动 `sp` 时所在的工程目录；例如从 `/home/wakaka/.privspec/common/` 启动时，会话归属该目录，从其他工程启动则归属对应工程。`session list` 与历史会话选择也按当前工程目录筛选。或在 TUI 里用 `/session` 查看、切换。
 
 ## 覆盖默认模型
 
