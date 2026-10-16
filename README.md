@@ -2,7 +2,7 @@
 
 可供不同机器与工程复用的本地开发工具脚本（Codex、Claude Code、OpenCode、VS Code 说明等）。
 
-在 privspec 中位于 `common/devtools/`，由 Ubuntu 与 server 菜单共用；也可作为其他工程（如 nginxRouter）的 Git 子模块。独立仓库：[gl-coding/devtools](https://github.com/gl-coding/devtools)。
+在 privspec 中位于 `common/devtools/`，由 `macos_gl`、`ubuntu_gl`、`ubuntu_server` 用户环境共用；Ubuntu 菜单与 server 菜单的接入入口见下文。它也可作为其他工程（如 nginxRouter）的 Git 子模块。独立仓库：[gl-coding/devtools](https://github.com/gl-coding/devtools)。
 
 ## 子模块
 
@@ -35,8 +35,8 @@ git clone --recurse-submodules git@github.com:gl-coding/devtools.git
 
 ## privspec 菜单接入
 
-- Ubuntu 菜单：`user/ubuntu/sh/sp.sh`，工具路径可通过 `DEVTOOLS_DIR` 覆盖。
-- 服务器菜单：`user/server/sp-menu.sh`，工具路径可通过 `SERVER_DEVTOOLS_DIR` 覆盖。
+- `ubuntu_gl` 菜单：`user/ubuntu_gl/sh/sp.sh`，工具路径可通过 `DEVTOOLS_DIR` 覆盖。
+- 服务器菜单：`user/ubuntu_server/sp-menu.sh`，工具路径可通过 `SERVER_DEVTOOLS_DIR` 覆盖。
 - 默认工具路径均为 `~/.privspec/common/devtools/`；nginxRouter 应用位置由 `NGINXROUTER_DIR` 单独配置，默认 `$HOME/nginxRouter`。
 
 Codex 与 OpenCode 包装脚本均在调用者当前目录运行，因此经 `sp` 新建的会话默认属于启动 `sp` 时所在的工程。Claude Code 和 OpenCode 按各自脚本目录定位工具配置；OpenCode 读取 `common/env/` 下的私有配置，不读取 `common/devtools/env/`。公共变量可由 privspec 加载入口提前导出。各工具具体参数和配置见各自 README。

@@ -48,7 +48,7 @@ claude --version
 
 ```bash
 ./devtools/claude/run.sh
-# 或 server 菜单：sp → 5–7 为 Claude（user.local=server，先 source ~/.privspec/load.sh）
+# ubuntu_server 的 sp 菜单不提供 Claude Code 入口，需直接运行此脚本。
 ```
 
 进入后可用 `/status` 确认 **Anthropic base URL** 为 `https://api.deepseek.com/anthropic`。
